@@ -9,20 +9,7 @@ library(tidyverse)
 options(digits.secs = 6) #to include fractions of a second for timestamps
 options(max.print = 100)
 
-
-#REMOTE FILES -- WARNING: Files are large (df_311data > 1gb), may take a while to download depending on connection 
-# url_stub <- 'https://dl.dropboxusercontent.com'
-# df_hs16 <- fread(paste0(url_stub, '/s/ksxhrdn1hgj0btl/Heat%20Seek%20NYC%20data%206-15%20to%206-16.csv?dl=0'), stringsAsFactors = TRUE, data.table = FALSE)
-# df_hs17 <- fread(paste0(url_stub, '/s/q03pq9qw0oi152b/Heat%20Seek%20NYC%20data%206-16%20to%206-17.csv?dl=0'), stringsAsFactors = TRUE, data.table = FALSE)
-# sensor_mapping <- fread(paste0(url_stub, '/s/doy90pumwhgygdl/sensor_mapping.csv?dl=0'), stringsAsFactors = FALSE, data.table = FALSE)
-# df_311data <- fread(paste0(url_stub, '/s/qwrc8shn8dtvy2a/311_Service_Requests_from_2010_to_Present.csv?dl=0'), stringsAsFactors = TRUE, data.table = FALSE)
-
-#LOCAL STORAGE
-# setwd('~/Dropbox/learning/NYCDSA/projects/NYCDSA_project_1/')
-df_hs16 <- fread('Heat Seek NYC data 6-15 to 6-16.csv', stringsAsFactors = TRUE, data.table = FALSE)
-df_hs17 <- fread('Heat Seek NYC data 6-16 to 6-17.csv', stringsAsFactors = TRUE, data.table = FALSE)
-sensor_mapping <- fread('sensor_mapping.csv', stringsAsFactors=FALSE, data.table = FALSE)
-df_311data <- fread('311_Service_Requests_from_2010_to_Present.csv', stringsAsFactors = TRUE, data.table = FALSE)
+source("import.R")
 
 ##############HELPER CODE###################
 winterize <- function(df, col_name) {
@@ -50,8 +37,8 @@ remove_outliers <- function(x, na.rm = TRUE, ...) {
 }
 
 ##############HEAT SEEK DATA CLEANING###################
-df_hs <- full_join(df_hs16, df_hs17)
-rm(df_hs16, df_hs17)
+# df_hs <- full_join(df_hs16, df_hs17)
+# rm(df_hs16, df_hs17)
 
 df_hs$created_at <- as.POSIXct(df_hs$created_at, format = "%Y-%m-%d %H:%M:%S", tz='EST')
 df_hs$address <- as.factor(df_hs$address)

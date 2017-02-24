@@ -3,7 +3,7 @@ library(plotly)
 library(scales)
 library(leaflet)
 
-require(global.R)
+source("global.R")
 
 function(input,output){
   
